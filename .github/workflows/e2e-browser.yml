@@ -1,0 +1,71 @@
+name: E2E - Browser Tests
+
+on:
+  workflow_dispatch:
+    inputs:
+      platform:
+        description: "Select platform to build"
+        required: true
+        default: "android"
+        type: choice
+        options:
+          - all
+          - ios
+          - android
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  iOS-browser:
+    if: ${{ github.event_name == 'pull_request' || github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
+    runs-on: macos-14
+    timeout-minutes: 10
+    # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
+    env:
+      ios_model: "iPhone 14"
+      ios_version: "17.5"
+      xcode_version: "15.4"
+    steps:
+      - name: ⬇️ Checkout Repository
+        uses: actions/checkout@v4
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+      - name: 🧩 Install Dependencies
+        run: npm ci
+      - name: 🔧 Select Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: ${{ env.xcode_version }}
+      - name: 📱 Start iOS Device
+        uses: futureware-tech/simulator-action@v3
+        with:
+          model: ${{ env.ios_model }}
+          os_version: ${{ env.ios_version }}
+      - name: 🔧 Prebuild Appium
+        run: |
+          npm install --location=global appium
+          appium driver list --installed
+          # appium driver install xcuitest
+          appium driver doctor xcuitest
+
+          # npx appium driver run xcuitest build-wda
+      - name: 🧪 Run tests iOS emulator
+        run: |
+          npm run ios.browser
+      - name: 📄 JUnit Report
+        uses: dorny/test-reporter@v1
+        if: success() || failure()
+        with:
+          name: ios_browser_results
+          path: test-reports/*.xml
+          reporter: jest-junit
+      - name: 💾 Save Appium server output
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-runner-output
+          path: |
+            logs/
