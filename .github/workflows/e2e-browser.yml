@@ -46,6 +46,7 @@ jobs:
           os_version: ${{ env.ios_version }}
       - name: 🔧 Run Appium
         run: |
+          xcrun simctl bootstatus 'iPhone 15'
           npx appium driver doctor xcuitest
           npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &
       - name: 🧪 Run tests iOS emulator
