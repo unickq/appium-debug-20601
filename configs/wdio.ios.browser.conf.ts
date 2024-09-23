@@ -18,7 +18,7 @@ export const config: WebdriverIO.Config = {
       // "appium:showXcodeLog": false,
       // "appium:showIOSLog": false,
       // "appium:launchWithIDB": true,
-      // "appium:wdaLaunchTimeout": 60_000 * 5,
+      "appium:wdaLaunchTimeout": 60_000 * 5,
       // "appium:wdaStartupRetries": 5,
       // "appium:wdaStartupRetryInterval": 30_000,
       // "appium:wdaConnectionTimeout": 60_000 * 3,
