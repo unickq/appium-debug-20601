@@ -44,26 +44,14 @@ jobs:
         with:
           model: ${{ env.ios_model }}
           os_version: ${{ env.ios_version }}
-      - name: 🔧 Prebuild Appium
+      - name: 🔧 Run Appium
         run: |
-          npm install --location=global appium
-          appium driver list --installed
-          # appium driver install xcuitest
-          appium driver doctor xcuitest
-
-          # npx appium driver run xcuitest build-wda
+          npx appium driver doctor xcuitest
+          npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &
       - name: 🧪 Run tests iOS emulator
         run: |
-          npm run ios.browser
-      - name: 📄 JUnit Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: ios_browser_results
-          path: test-reports/*.xml
-          reporter: jest-junit
+          node pure.cjs
       - name: 💾 Save Appium server output
-        if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: ios-runner-output
