@@ -46,12 +46,11 @@ jobs:
           os_version: ${{ env.ios_version }}
       - name: 🔧 Prebuild Appium
         run: |
-          npm install --location=global appium
-          appium driver list --installed
+          # npm install --location=global appium
+          # appium driver list --installed
           # appium driver install xcuitest
-          appium driver doctor xcuitest
-
-          # npx appium driver run xcuitest build-wda
+          npx appium driver doctor xcuitest
+          npx appium driver run xcuitest build-wda
       - name: 🧪 Run tests iOS emulator
         run: |
           npm run ios.browser
