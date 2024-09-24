@@ -22,6 +22,8 @@ export const config: WebdriverIO.Config = {
       "appium:wdaStartupRetries": 5,
       "appium:wdaStartupRetryInterval": 30_000,
       "appium:wdaConnectionTimeout": 60_000 * 5,
+      "appium:webviewConnectTimeout": 60_000 * 5,
+      "appium:webviewConnectRetries": 5,
       // "appium:simulatorStartupTimeout": 60_000 * 3,
     },
   ],

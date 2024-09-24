@@ -20,7 +20,7 @@ jobs:
   iOS-browser:
     if: ${{ github.event_name == 'pull_request' || github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
     runs-on: macos-14
-    timeout-minutes: 10
+    timeout-minutes: 15
     # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
     env:
       ios_model: "iPhone 14"
@@ -49,8 +49,8 @@ jobs:
           # npm install --location=global appium
           # appium driver list --installed
           # appium driver install xcuitest
-          # npx appium driver doctor xcuitest
-          npx appium driver run xcuitest build-wda
+          npx appium driver doctor xcuitest
+          # npx appium driver run xcuitest build-wda
       - name: 🧪 Run tests iOS emulator
         run: |
           npm run ios.browser
