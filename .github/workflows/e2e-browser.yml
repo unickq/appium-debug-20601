@@ -23,7 +23,7 @@ jobs:
     timeout-minutes: 10
     # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
     env:
-      ios_model: "iPhone 14"
+      ios_model: "iPhone 15"
       ios_version: "17.5"
       xcode_version: "15.4"
     steps:
@@ -44,10 +44,11 @@ jobs:
         with:
           model: ${{ env.ios_model }}
           os_version: ${{ env.ios_version }}
+      - name: 🔧 Prebuild XCUITest driver
+        run: |
+          npx appium driver run xcuitest build-wda
       - name: 🔧 Run Appium
         run: |
-          xcrun simctl bootstatus 'iPhone 15'
-          npx appium driver doctor xcuitest
           npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &
       - name: 🧪 Run tests iOS emulator
         run: |
