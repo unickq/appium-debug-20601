@@ -49,7 +49,7 @@ jobs:
           # npm install --location=global appium
           # appium driver list --installed
           # appium driver install xcuitest
-          npx appium driver doctor xcuitest
+          # npx appium driver doctor xcuitest
           npx appium driver run xcuitest build-wda
       - name: 🧪 Run tests iOS emulator
         run: |
