@@ -24,7 +24,7 @@ jobs:
     # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
     env:
       ios_model: "iPhone 14"
-      ios_version: "17.5"
+      ios_version: "17.4"
       xcode_version: "15.4"
     steps:
       - name: ⬇️ Checkout Repository
@@ -35,10 +35,10 @@ jobs:
           node-version-file: ".nvmrc"
       - name: 🧩 Install Dependencies
         run: npm ci
-      - name: 🔧 Select Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: ${{ env.xcode_version }}
+      # - name: 🔧 Select Xcode
+      #   uses: maxim-lobanov/setup-xcode@v1
+      #   with:
+      #     xcode-version: ${{ env.xcode_version }}
       - name: 📱 Start iOS Device
         uses: futureware-tech/simulator-action@v3
         with:
