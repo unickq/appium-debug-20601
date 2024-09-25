@@ -46,7 +46,7 @@ jobs:
           os_version: ${{ env.ios_version }}
       - name: 🔧 Prebuild XCUITest driver
         run: |
-          npx appium driver run xcuitest build-wda
+          npx appium driver run xcuitest build-wda --sdk=${{ env.ios_version }} --name="${{ env.ios_model }}"
       - name: 🔧 Run Appium
         run: |
           npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &
