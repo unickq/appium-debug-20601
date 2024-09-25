@@ -44,10 +44,14 @@ jobs:
         with:
           model: ${{ env.ios_model }}
           os_version: ${{ env.ios_version }}
-      - name: 🔧 Prebuild XCUITest driver
+      - name: 🔧 Install XCUITest driver on the device
         run: |
-          npx appium driver run xcuitest build-wda --sdk=${{ env.ios_version }} --name="${{ env.ios_model }}"
-          # xcodebuild build-for-testing test-without-building -project /Users/runner/work/appium-debug-20601/appium-debug-20601/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj -scheme WebDriverAgentRunner -derivedDataPath /Users/runner/Library/Developer/Xcode/DerivedData/WebDriverAgent-fxpboqmophaxtkbachmlyekqopep -destination id=B2E5D5A9-E7EC-46B0-B64D-9FC0DBBA441B IPHONEOS_DEPLOYMENT_TARGET=17.5 GCC_TREAT_WARNINGS_AS_ERRORS=0 COMPILER_INDEX_STORE_ENABLE=NO
+          xcodebuild build-for-testing test-without-building \
+            -project ./node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj \
+            -derivedDataPath wda_build \
+            -scheme WebDriverAgentRunner \
+            -destination "platform=iOS Simulator,name=${{ env.ios_model }}" \
+            CODE_SIGNING_ALLOWED=NO
       - name: 🔧 Run Appium
         run: |
           npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &

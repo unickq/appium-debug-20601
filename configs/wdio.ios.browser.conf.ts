@@ -15,6 +15,7 @@ export const config: WebdriverIO.Config = {
       "appium:orientation": "PORTRAIT",
       "appium:automationName": "XCUITest",
       "appium:newCommandTimeout": 240,
+      // "appium:prebuildWDA": true,
       // "appium:showXcodeLog": false,
       // "appium:showIOSLog": false,
       // "appium:launchWithIDB": true,
