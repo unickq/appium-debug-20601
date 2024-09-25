@@ -20,7 +20,7 @@ jobs:
   iOS-browser:
     if: ${{ github.event_name == 'pull_request' || github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
     runs-on: macos-14
-    timeout-minutes: 10
+    timeout-minutes: 15
     # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
     env:
       ios_model: "iPhone 15"
