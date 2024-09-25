@@ -50,7 +50,7 @@ jobs:
             -project ./node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj \
             -derivedDataPath wda_build \
             -scheme WebDriverAgentRunner \
-            -destination "platform=iOS Simulator,name=${{ env.ios_model }}" \
+            -destination 'platform=iOS Simulator,name=${{ env.ios_model }},OS=${{ env.ios_version }}' \
             CODE_SIGNING_ALLOWED=NO
       - name: 🔧 Run Appium
         run: |
