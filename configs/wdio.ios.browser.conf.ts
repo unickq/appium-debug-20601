@@ -14,6 +14,9 @@ export const config: WebdriverIO.Config = {
       "appium:automationName": "XCUITest",
       "appium:useXctestrunFile": true,
       "appium:bootstrapPath": "./wda_build/Build/Products",
+      "appium:wdaLaunchTimeout": 120_000,
+      "appium:wdaStartupRetryInterval": 30_000,
+      "appium:wdaConnectionTimeout": 120_000,
     },
   ],
 };
