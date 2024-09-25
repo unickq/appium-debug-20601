@@ -5,7 +5,7 @@ const capabilities = {
   "appium:automationName": "XCuiTest",
   "appium:browserName": "Safari",
   "appium:deviceName": process.env.ios_model || "iPhone 15",
-  "appium:platformVersion": process.env.ios_version || "18.0",
+  "appium:platformVersion": process.env.ios_version || "17.5",
   // "appium:wdaLaunchTimeout": 300_000,
   // "appium:commandTimeouts": 300_000,
   // "appium:wdaStartupRetries": 5,

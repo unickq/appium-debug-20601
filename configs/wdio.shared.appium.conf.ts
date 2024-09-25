@@ -10,8 +10,6 @@ export const config: Partial<WebdriverIO.Config> = {
       "appium",
       {
         args: {
-          // address: "127.0.0.1",
-          // allowCors: true,
           relaxedSecurity: true,
           logTimestamp: true,
           log: "./logs/appium-ios.log",
