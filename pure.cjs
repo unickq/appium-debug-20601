@@ -13,6 +13,8 @@ const capabilities = {
   // "appium:wdaConnectionTimeout": 60_000 * 5,
   "appium:webviewConnectTimeout": 20_000,
   "appium:webviewConnectRetries": 5,
+  "appium:showXcodeLog": true,
+  "appium:showIOSLog": true,
 };
 
 async function runTest() {
