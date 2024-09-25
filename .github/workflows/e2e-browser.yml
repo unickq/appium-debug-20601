@@ -20,12 +20,12 @@ jobs:
   iOS-browser:
     if: ${{ github.event_name == 'pull_request' || github.event.inputs.platform == 'all' || github.event.inputs.platform == 'ios' }}
     runs-on: macos-14
-    timeout-minutes: 10
+    timeout-minutes: 15
     # https://github.com/futureware-tech/simulator-action/wiki/Devices-macos-14
     env:
-      ios_model: "iPhone 14"
-      ios_version: "17.5"
-      xcode_version: "15.4"
+      ios_model: "iPhone 15"
+      ios_version: "18.0"
+      xcode_version: "16.0"
     steps:
       - name: ⬇️ Checkout Repository
         uses: actions/checkout@v4
@@ -44,26 +44,22 @@ jobs:
         with:
           model: ${{ env.ios_model }}
           os_version: ${{ env.ios_version }}
-      - name: 🔧 Prebuild Appium
+      - name: 🔧 Build XCUITest driver
         run: |
-          npm install --location=global appium
-          appium driver list --installed
-          # appium driver install xcuitest
-          appium driver doctor xcuitest
-
-          # npx appium driver run xcuitest build-wda
+          xcodebuild build-for-testing \
+            -project ./node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj \
+            -derivedDataPath wda_build \
+            -scheme WebDriverAgentRunner \
+            -destination 'platform=iOS Simulator,name=${{ env.ios_model }},OS=${{ env.ios_version }}' \
+            CODE_SIGNING_ALLOWED=NO
+      - name: 🔧 Run Appium
+        run: |
+          npx appium --log-timestamp --log logs/appium-ios.log --log-level debug &
       - name: 🧪 Run tests iOS emulator
         run: |
-          npm run ios.browser
-      - name: 📄 JUnit Report
-        uses: dorny/test-reporter@v1
-        if: success() || failure()
-        with:
-          name: ios_browser_results
-          path: test-reports/*.xml
-          reporter: jest-junit
+          node pure.cjs
       - name: 💾 Save Appium server output
-        if: failure()
+        if: success() || failure()
         uses: actions/upload-artifact@v4
         with:
           name: ios-runner-output
