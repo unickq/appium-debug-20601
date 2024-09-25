@@ -6,18 +6,11 @@ const capabilities = {
   "appium:browserName": "Safari",
   "appium:deviceName": process.env.ios_model || "iPhone 15",
   "appium:platformVersion": process.env.ios_version || "17.5",
-  // "appium:wdaLaunchTimeout": 300_000,
-  // "appium:commandTimeouts": 300_000,
-  // "appium:wdaStartupRetries": 5,
-  // "appium:wdaStartupRetryInterval": 30_000,
-  // "appium:usePreinstalledWDA": true,
-
+  "appium:wdaLaunchTimeout": 60_000,
+  "appium:wdaStartupRetries": 5,
   "appium:useXctestrunFile": true,
   "appium:bootstrapPath": "wda_build/Build/Products",
-  // "appium:updatedWDABundleId": "com.appium.WebDriverAgentRunner",
-  // "appium:wdaConnectionTimeout": 60_000 * 5,
-  // "appium:webviewConnectTimeout": 60_000 * 3,
-  // "appium:showXcodeLog": true,
+  "appium:webviewConnectTimeout": 60_000,
 };
 
 async function runTest() {
