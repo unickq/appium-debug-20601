@@ -44,9 +44,9 @@ jobs:
         with:
           model: ${{ env.ios_model }}
           os_version: ${{ env.ios_version }}
-      - name: 🔧 Install XCUITest driver on the device
+      - name: 🔧 Build XCUITest driver
         run: |
-          xcodebuild build-for-testing test-without-building \
+          xcodebuild build-for-testing \
             -project ./node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj \
             -derivedDataPath wda_build \
             -scheme WebDriverAgentRunner \

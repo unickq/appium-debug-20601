@@ -10,7 +10,10 @@ const capabilities = {
   // "appium:commandTimeouts": 300_000,
   // "appium:wdaStartupRetries": 5,
   // "appium:wdaStartupRetryInterval": 30_000,
-  "appium:usePreinstalledWDA": true,
+  // "appium:usePreinstalledWDA": true,
+
+  "appium:useXctestrunFile": true,
+  "appium:bootstrapPath": "wda_build/Build/Products",
   // "appium:updatedWDABundleId": "com.appium.WebDriverAgentRunner",
   // "appium:wdaConnectionTimeout": 60_000 * 5,
   // "appium:webviewConnectTimeout": 60_000 * 3,
